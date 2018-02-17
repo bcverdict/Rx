@@ -62,12 +62,28 @@ double Executive::rad2deg(double rad)
 }
 double Executive::Calc(double Lat, double Long)
 {
-	double lat1r, lon1r,lat2r,lon2r,u,v;
+	double lat1r, lon1r,lat2r,lon2r,u,v,Temp,Fin;
+	int index = 0;
 	lat1r = deg2rad(Lat);
 	lon1r = deg2rad(Long);
-	lat2r = deg2rad(m_Lat[0]);
-	lon2r = deg2rad(m_Long[0]);
-	u = sin((lat2r-lat1r)/2);
-	v = sin((lon2r-lon1r)/2);
-	return(2.0*6371.0*asin(sqrt(u*u+cos(lat1r)*cos(lat2r)*v*v)));	
+	for(int i = 0; i<m_Name.size();i++)
+	{
+		lat2r = deg2rad(m_Lat[i]);
+		lon2r = deg2rad(m_Long[i]);
+		u = sin((lat2r-lat1r)/2);
+		v = sin((lon2r-lon1r)/2);
+		Temp=2.0*6371.0*asin(sqrt(u*u+cos(lat1r)*cos(lat2r)*v*v));	
+		cout<<"Temp: "<<Temp<<endl<<"Index: "<<i<<endl;
+		if(i==0)
+		{
+			Fin=Temp;
+		}
+		else if(Temp<Fin)
+		{
+			Fin=Temp;
+			index = i;
+		}
+	}
+		cout<<"Lowest distance is: "<<Fin<<" KM"<<endl<<"At index: "<<index<<endl;
+		return(Fin);	
 }
