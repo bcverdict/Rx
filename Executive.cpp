@@ -5,9 +5,9 @@
 #include <math.h>
 using namespace std;
 
-Executive::Executive(string Filename)
+Executive::Executive()
 {
-	ifstream InFile(Filename);
+	ifstream InFile("pharmacies.csv");
 	string Variable;
 	string Temp;
 	double DoubleConvert;
@@ -86,4 +86,20 @@ double Executive::Calc(double Lat, double Long)
 	}
 		cout<<"Lowest distance is: "<<Fin<<" KM"<<endl<<"At index: "<<index<<endl;
 		return(Fin);	
+}
+void Executive::setName(string Name)
+{
+	m_FinName=Name;
+}
+void Executive::setAddress(string Address)
+{
+	m_FinAddress=Address;
+}
+string Executive::getName()
+{
+	return(m_FinName);
+}
+string Executive::getAddress()
+{
+	return(m_FinAddress);
 }

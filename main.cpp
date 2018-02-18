@@ -8,7 +8,7 @@ int main(int argc, char * argv[])
 	std::cin>>Lat;
 	std::cout<<"Current longitude?"<<std::endl;
 	std::cin>>Long;
-	Executive E("pharmacies.csv");
+	Executive E;
 	E.Calc(Lat,Long);
 	return 0;
 }
