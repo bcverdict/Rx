@@ -51,40 +51,39 @@ Executive::Executive()
 Executive::~Executive()
 {
 }
-double Executive::deg2rad(double deg)
+double Executive::getRadians(double Deg)
 {
-	return(deg*M_PI / 180);
+	return(Deg*M_PI/180);
 }
-double Executive::rad2deg(double rad)
+void Executive::Calc(double Lat, double Long)
 {
-	return(rad*180/M_PI);
-}
-double Executive::Calc(double Lat, double Long)
-{
-	double lat1r, lon1r,lat2r,lon2r,u,v,Temp,Fin;
+	double Lat2Con,Long2Con,Comp1,Comp2,Temp,F;
 	int index = 0;
-	lat1r = deg2rad(Lat);
-	lon1r = deg2rad(Long);
+	double Lat1Con = getRadians(Lat);
+	double Long1Con = getRadians(Long);
 	for(int i = 0; i<m_Name.size();i++)
 	{
-		lat2r = deg2rad(m_Lat[i]);
-		lon2r = deg2rad(m_Long[i]);
-		u = sin((lat2r-lat1r)/2);
-		v = sin((lon2r-lon1r)/2);
-		Temp=2.0*6371.0*asin(sqrt(u*u+cos(lat1r)*cos(lat2r)*v*v));	
+		Lat2Con = getRadians(m_Lat[i]);
+		Long2Con = getRadians(m_Long[i]);
+		Comp1 = sin((Lat2Con-Lat1Con)/2);
+		Comp2 = sin((Long2Con-Long1Con)/2);
+		Temp=2.0*6371.0*asin(sqrt(Comp1*Comp1+cos(Lat1Con)*cos(Lat2Con)*Comp2*Comp2));	
+		m_Distance.push_back(Temp);
 		cout<<"Temp: "<<Temp<<endl<<"Index: "<<i<<endl;
 		if(i==0)
 		{
-			Fin=Temp;
+			F=Temp;
 		}
-		else if(Temp<Fin)
+		else if(Temp<F)
 		{
-			Fin=Temp;
+			F=Temp;
 			index = i;
 		}
 	}
-		cout<<"Lowest distance is: "<<Fin<<" KM"<<endl<<"At index: "<<index<<endl;
-		return(Fin);	
+	setName(m_Name[index]);
+	setAddress(m_Address[index]);
+	setDistance(m_Distance[index]);
+	cout<<"Name: "<<getName()<<endl<<"Address: "<<getAddress()<<endl<<"Distance: "<<getDistance()<<endl;
 }
 void Executive::setName(string Name)
 {
@@ -94,6 +93,10 @@ void Executive::setAddress(string Address)
 {
 	m_FinAddress=Address;
 }
+void Executive::setDistance(double Distance)
+{
+	m_FinDistance=Distance;
+}
 string Executive::getName()
 {
 	return(m_FinName);
@@ -101,4 +104,8 @@ string Executive::getName()
 string Executive::getAddress()
 {
 	return(m_FinAddress);
+}
+double Executive::getDistance()
+{
+	return(m_FinDistance);
 }

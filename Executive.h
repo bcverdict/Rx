@@ -12,20 +12,22 @@ class Executive
 	public:
 		Executive();
 		~Executive();
-		double deg2rad(double deg);
-		double rad2deg(double rad);
-		double Calc(double Lat, double Long);
+		double getRadians(double Deg);
+		void Calc(double Lat, double Long);
 		void setName(std::string Name);
 		void setAddress(std::string Address);
+		void setDistance(double Distance);
 		std::string getName();
 		std::string getAddress();
+		double getDistance();
 	private:
 		std::vector<std::string> m_Name;
 		std::vector<std::string> m_Address;
 		std::vector<double> m_Lat;
 		std::vector<double> m_Long;
-		std::vector<int> m_Order;
+		std::vector<double> m_Distance;
 		std::string m_FinName;
 		std::string m_FinAddress;
+		double m_FinDistance;
 };
 #endif
