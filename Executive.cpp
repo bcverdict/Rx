@@ -22,9 +22,9 @@ Executive::Executive()
 		m_Name.push_back(Temp.substr(1,Temp.length()-2));
 
 		getline(InFile,Temp,',');
-		Variable+=Temp.substr(1,Temp.length()-2)+" ";
+		Variable+=Temp.substr(1,Temp.length()-2)+" "; 
 		getline(InFile,Temp,',');
-		Variable+=Temp.substr(1,Temp.length()-2)+" ";
+		Variable+=","+Temp.substr(1,Temp.length()-2)+" ";
 		getline(InFile,Temp,',');
 		Variable+=Temp.substr(1,Temp.length()-2)+" ";
 		getline(InFile,Temp,',');
@@ -47,13 +47,10 @@ Executive::Executive()
 		cout<<"Longitude: "<<m_Long[i]<<endl;
 	}
 	cout<<"Size: "<<m_Name.size()<<endl;
+	InFile.close();
 }
 Executive::~Executive()
 {
-}
-double Executive::getRadians(double Deg)
-{
-	return(Deg*M_PI/180);
 }
 void Executive::Calc(double Lat, double Long)
 {
@@ -67,7 +64,7 @@ void Executive::Calc(double Lat, double Long)
 		Long2Con = getRadians(m_Long[i]);
 		Comp1 = sin((Lat2Con-Lat1Con)/2);
 		Comp2 = sin((Long2Con-Long1Con)/2);
-		Temp=2.0*6371.0*asin(sqrt(Comp1*Comp1+cos(Lat1Con)*cos(Lat2Con)*Comp2*Comp2));	
+		Temp=12742*asin(sqrt(Comp1*Comp1+cos(Lat1Con)*cos(Lat2Con)*Comp2*Comp2));	
 		m_Distance.push_back(Temp);
 		cout<<"Temp: "<<Temp<<endl<<"Index: "<<i<<endl;
 		if(i==0)
@@ -109,3 +106,8 @@ double Executive::getDistance()
 {
 	return(m_FinDistance);
 }
+double Executive::getRadians(double Deg)
+{
+	return(Deg*3.1415/ 180);
+}
+
